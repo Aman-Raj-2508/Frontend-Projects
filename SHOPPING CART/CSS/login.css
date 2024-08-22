@@ -1,0 +1,30 @@
+.home-title {
+    font-size: 3.5rem;
+    margin-top: 3rem;
+    letter-spacing: 0.8rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.login-wrapper {
+    width: 35rem;
+    margin: 3rem auto;
+}
+
+.login-wrapper .signup-btn {
+    cursor: pointer;
+    color: black;
+    padding: 1rem;
+}
+
+.login-wrapper .signup-btn:hover {
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.login-wrapper h4 {
+    font-size: 2rem;
+    letter-spacing: 4px;
+}

@@ -1,0 +1,40 @@
+.home-title {
+    font-size: 3.5rem;
+    margin-top: 3rem;
+    letter-spacing: 0.8rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.category-title {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+}
+
+.category-list {
+    margin-top: 3rem;
+    gap: 1rem;
+}
+
+.category-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.category-item {
+    border: 1px solid var(--pale-blue);
+    box-shadow: 4px 4px 2px var(--mid-gray);
+    background-color: var(--jean-blue);
+    padding: 1rem 1.5rem;
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 4.55rem;
+    min-width: 5.8rem;
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.category-item:hover {
+    box-shadow: 0 0;
+}
