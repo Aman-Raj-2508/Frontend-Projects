@@ -19,8 +19,9 @@ todoInputBar.addEventListener("keyup", function toggleSaveButton() {
 saveButton.addEventListener("click", function getTextAndAddTodo() {
     let todotext = todoInputBar.value;//gets the input that one write in input bar
     if (todotext.length == 0) return;
-    todos.push(todotext);
-    addTodo(todotext, todos.length);
+    let todo = { text: todotext, status: 'In progress', finishedButtontext: "Finished" } //object thay stores tototext and status
+    todos.push(todo);
+    addTodo(todo, todos.length);
     todoInputBar.value = '';
 })
 
@@ -36,7 +37,34 @@ function removeTodo(event) {
     })
 }
 
-function addTodo(todoData, todoCount) {
+function finishTodo(event) {
+    let finishButtonPressed = event.target;
+    let indexTobeFinished = Number(finishButtonPressed.getAttribute("todo-idx"));
+
+    if (todos[indexTobeFinished].status == "Finished") {
+        todos[indexTobeFinished].status = "In progress"
+        todos[indexTobeFinished].finishedButtontext = "Finished"
+    } else {
+        todos[indexTobeFinished].status = "Finished";
+        todos[indexTobeFinished].finishedButtontext = "Undo"
+    }
+
+    //sorting the todos based on status 
+    todos.sort((a, b) => {
+        if (a.status == 'Finished') {
+            return 1;//b is placed before a 
+        }
+        return -1;//b is placed after a
+    })
+
+    //redering the total html after storing the todos in array
+    todoDataList.innerHTML = '';
+    todos.forEach((element, idx) => {
+        addTodo(element, idx + 1);
+    })
+}
+
+function addTodo(todo, todoCount) {
     let rowDiv = document.createElement("div");
     let todoItem = document.createElement("div");
     let todoNumber = document.createElement("div");
@@ -57,15 +85,19 @@ function addTodo(todoData, todoCount) {
     deleteButton.classList.add("btn", "btn-danger", "delete-todo");
     finishedButton.classList.add("btn", "btn-success", "finished-todo");
 
+
     deleteButton.onclick = removeTodo;//since the delete button was inside the function that's why
     deleteButton.setAttribute("todo-idx", todoCount - 1);
 
+    finishedButton.onclick = finishTodo;//calls the finish todo function
+    finishedButton.setAttribute("todo-idx", todoCount - 1);
+
     //Adding the text based information
     todoNumber.textContent = `${todoCount}.`;
-    todoDetail.textContent = todoData;//sets the todo text sent from the input element
-    todoStatus.textContent = "In progress";
+    todoDetail.textContent = todo.text;//sets the todoobject into text sent from the input element
+    todoStatus.textContent = todo.status;
     deleteButton.textContent = "Delete";
-    finishedButton.textContent = "Finished";
+    finishedButton.textContent = todo.finishedButtontext;
 
     //Appending the children
     todoActions.appendChild(deleteButton);
