@@ -2,7 +2,7 @@ console.log("WElcome to my todo app");
 
 let todos = [];//for storing todos
 
-let todoDataSection = document.getElementById("todo-data");
+let todoDataList = document.getElementById("todo-data-list");
 let saveButton = document.getElementById("save-todo");
 let todoInputBar = document.getElementById("todo-input-bar");
 
@@ -24,6 +24,18 @@ saveButton.addEventListener("click", function getTextAndAddTodo() {
     todoInputBar.value = '';
 })
 
+function removeTodo(event) {
+    // console.log("clicked", event.target.parentElement.parentElement.parentElement);//event.target refers to the button eleemnt directly and with the help of.parentElement we got access to parents
+    // event.target.parentElement.parentElement.parentElement.remove();//with the help of remove we remove the last parent element that is row so whole todo is removed
+    let deleteButtonPressed = event.target;
+    let indexTobeRemoved = Number(deleteButtonPressed.getAttribute("todo-idx"));
+    todos.splice(indexTobeRemoved, 1);
+    todoDataList.innerHTML = '';
+    todos.forEach((element, idx) => {
+        addTodo(element, idx + 1);
+    })
+}
+
 function addTodo(todoData, todoCount) {
     let rowDiv = document.createElement("div");
     let todoItem = document.createElement("div");
@@ -42,8 +54,11 @@ function addTodo(todoData, todoCount) {
     todoDetail.classList.add("todo-detail", "text-muted");
     todoStatus.classList.add("todo-status", "text-muted");
     todoActions.classList.add("todo-actions", "d-flex", "justify-content-start", "gap-2");
-    deleteButton.classList.add("btn", "btn-danger");
-    finishedButton.classList.add("btn", "btn-success");
+    deleteButton.classList.add("btn", "btn-danger", "delete-todo");
+    finishedButton.classList.add("btn", "btn-success", "finished-todo");
+
+    deleteButton.onclick = removeTodo;//since the delete button was inside the function that's why
+    deleteButton.setAttribute("todo-idx", todoCount - 1);
 
     //Adding the text based information
     todoNumber.textContent = `${todoCount}.`;
@@ -60,7 +75,7 @@ function addTodo(todoData, todoCount) {
     todoItem.appendChild(todoStatus);
     todoItem.appendChild(todoActions);
     rowDiv.appendChild(todoItem);
-    todoDataSection.appendChild(rowDiv);
+    todoDataList.appendChild(rowDiv);
 }
 
 
