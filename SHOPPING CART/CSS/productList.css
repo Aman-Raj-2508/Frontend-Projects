@@ -66,8 +66,14 @@
     padding: 0.5rem;
 }
 
-.product-list-box .product-item img {
-    width: 100%;
+
+.product-img {
+    height: 400px;
+}
+
+img {
+    max-width: 100%;
+    min-height: 100%;
 }
 
 

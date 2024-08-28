@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             productPrice.classList.add("product-price", "text-center");
 
             //setting the content
-            productName.textContent = product.title; //sets the title of product from the fake store API with the help of Title property of Fakestore
+            productName.textContent = product.title.substring(0, 12) + "..."; //sets the title of product from the fake store API with the help of Title property of Fakestore
             productPrice.textContent = `&#8377; ${product.price}`;
 
             const imageInsideProductImage = document.createElement("img");
