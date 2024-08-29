@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {    //Applied to the whole 
     let dPy = 15;//displacement for paddle in y-direction
     document.addEventListener("keydown", (event) => {
 
-        event.preventDefault();//prevents the execution of the defaulr event behaviou r
+        event.preventDefault();//prevents the execution of the default event behaviour
         if (event.keyCode == 38 && paddleY > 0) { //up
             paddleY += (-1) * dPy;
         } else if (event.keyCode == 40 && paddleY < (table.offsetHeight - paddle.offsetHeight)) {//down
@@ -60,13 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {    //Applied to the whole 
     })
 
     document.addEventListener("mousemove", (event) => {
-        let mouseDistanceFromTop = event.clientY; // this is the distance of the mouse point fromt he top of the screen
+        let mouseDistanceFromTop = event.clientY; // this is the distance of the mouse point from the top of the screen
         let distanceOfTableFromTop = table.offsetTop;
         let mousePointControl = mouseDistanceFromTop - distanceOfTableFromTop - paddle.offsetHeight / 2;
         paddleY = mousePointControl;
         if (paddleY <= 0 || paddleY > table.offsetHeight - paddle.offsetHeight) return;//if bottom of the paddle touches bottom of the table then return
+
+
         paddle.style.top = `${paddleY}px`;
-
-
     })
 });
