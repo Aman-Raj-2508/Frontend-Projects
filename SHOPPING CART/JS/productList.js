@@ -5,12 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await axios.get('https://fakestoreapi.com/products');
         return response.data;
     }
+
+
+
+    //5th function
+    async function fetchProductsByCategories(category) {
+        const response = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
+        return response.data;
+    }
+
+
+    //6th Function for fetching categories from productList.html sidebar only
+    async function fetchCategories() {
+        //this function is marked async so this will also return a promise
+        const response = await fetch("https://fakestoreapi.com/products/categories");
+        const data = await response.json();
+        return data;
+    }
+
+
     // 2nd function
     async function populateProducts(flag, customProducts) {
-
         let products = customProducts;
+        //searching the categories
+        const queryParams = new URLSearchParams(window.location.search);
+        const queryParamsObject = Object.fromEntries(queryParams.entries());
+        //condition for categories
         if (flag == false) {
-            products = await fetchProducts();
+            if (queryParamsObject['category']) { //if queryparamsObject has a category
+                products = await fetchProductsByCategories(queryParamsObject['category']);//it passes the parameter of queryParamsObject category if it is present
+            } else {
+                products = await fetchProducts();
+            }
         }
 
         const productList = document.getElementById("productList");
@@ -33,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             //setting the content
             productName.textContent = product.title.substring(0, 12) + "..."; //sets the title of product from the fake store API with the help of Title property of Fakestore
-            productPrice.textContent = `&#8377; ${product.price}`;
+            productPrice.textContent = `₹ ${product.price}`;
 
             const imageInsideProductImage = document.createElement("img");
             imageInsideProductImage.src = product.image;
@@ -48,7 +74,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+    //7th function for fetching categories from sidebar of productList.html
+    async function populateCategories() {
+        const categories = await fetchCategories();
+        const categoryList = document.getElementById("categoryList");
+        categories.forEach(category => {
+            const categoryLink = document.createElement("a");
+            categoryLink.classList.add("d-flex", "text-decoration-none");
+            categoryLink.textContent = category;
+            categoryLink.href = `productList.html?category=${category}`;
+
+            categoryList.appendChild(categoryLink);
+        })
+    }
+
+
     populateProducts(false);
+    populateCategories();
+
+
 
     // 3rd function
     const filterSearch = document.getElementById("search");
@@ -62,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
         productList.innerHTML = "";
         populateProducts(true, filteredProducts);
     });
+
+
 
     // 4th function 
     const clearFilter = document.getElementById("clear");

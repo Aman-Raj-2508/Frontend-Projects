@@ -10,11 +10,11 @@ async function fetchCategories() {
 async function populateCategories() {
   const categories = await fetchCategories();
   const categoryList = document.getElementById("categoryList");
-  categories.forEach((category) => {
+  categories.forEach(category => {
     const categoryHolder = document.createElement("div");
     const categoryLink = document.createElement("a");
 
-    categoryLink.href = "#";
+    categoryLink.href = `productList.html?category=${category}`;
     categoryLink.textContent = category; //setting the category name as the text of the anchor tag
 
     //adding classes
