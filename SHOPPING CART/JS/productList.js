@@ -89,9 +89,24 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
+    // async function downloadContentAndPopulate() {
+    //     populateProducts(false);
+    //     populateCategories();
+    //     const loaderBackdrop = document.getElementById("loader-backdrop");
+    //     loaderBackdrop.style.display = 'none';
+    // }
 
-    populateProducts(false);
-    populateCategories();
+    // to Load parallely products and categories
+    async function downloadContentAndPopulate() {
+        Promise.all([populateProducts(false), populateCategories()])
+            .then(() => {
+                const loaderBackdrop = document.getElementById("loader-backdrop");
+                loaderBackdrop.style.display = 'none';
+            });
+    }
+
+    downloadContentAndPopulate();
+
 
 
 
