@@ -27,9 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2nd function
     async function populateProducts(flag, customProducts) {
         let products = customProducts;
-        //searching the categories
+
+
+        //searching the categories and this thing is moved to common.js
         const queryParams = new URLSearchParams(window.location.search);
         const queryParamsObject = Object.fromEntries(queryParams.entries());
+
+
+
         //condition for categories
         if (flag == false) {
             if (queryParamsObject['category']) { //if queryparamsObject has a category
@@ -45,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const productItem = document.createElement("a");
             productItem.target = "_blank";
             productItem.classList.add("product-item", "text-decoration-none", "d-inline-block")
-            productItem.href = "productDetails.html";
+            productItem.href = `productDetails.html?id=${product.id}`;
 
             //product image name and price
             const productImage = document.createElement("div");
