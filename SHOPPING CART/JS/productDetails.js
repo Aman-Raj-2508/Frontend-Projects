@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (queryParams['id']) { //if queryparam has a property id
             const productId = queryParams['id'];
             const product = await fetchProductById(productId);
-
+            // const loaderBackdrop = document.getElementById("loader-backdrop");
+            // loaderBackdrop.style.display = 'none';
 
             const productName = document.getElementById('product-name');
             const productPrice = document.getElementById('product-price');
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             productDesc.textContent = product.description;
             productImg.src = product.image;
             productPrice.textContent = product.price;
+            removeLoader();
         }
     }
     populateProduct();
