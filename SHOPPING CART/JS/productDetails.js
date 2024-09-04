@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     async function populateProduct() {
         const queryParams = getQueryParams();
         if (queryParams['id']) { //if queryparam has a property id
-            const productId = queryParams['id'];
-            const product = await fetchProductById(productId);
+            // const productId = queryParams['id'];
+            const product = await fetchProductById(queryParams['id']);
             // const loaderBackdrop = document.getElementById("loader-backdrop");
             // loaderBackdrop.style.display = 'none';
 
